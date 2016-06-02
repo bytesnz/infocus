@@ -18,15 +18,3 @@ The script is pure Javascript and uses
 (the auto script also uses
 [`DOMContentLoaded`](http://caniuse.com/#feat=domcontentloaded),
 hence it will require shims/polyfills to support older browsers.
-
-Example Use:
-
-```javascript
-<script src="infocus.js"></script>
-<script>
-  // DOMContentLoaded also requires a shim/polyfill for <IE9
-  document.addEventListener("DOMContentLoaded", function(event) { 
-    infocus('focus');
-  });
-</script>
-```
