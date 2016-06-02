@@ -69,7 +69,7 @@ function infocus(focusClass, inputSelector) {
     // Find the parent label
     if (!label) {
       label = inputs[i];
-      while ((label = inputs[i].parentElement)) {
+      while ((label = label.parentElement)) {
         if (label.nodeName === 'LABEL') {
           break;
         }
