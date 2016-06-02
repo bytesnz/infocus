@@ -1,4 +1,4 @@
-infocus
+#infocus
 
 A super simple pure javascript script to add a class to an input's label when
 the input is in focus (and remove it when it loses focus). It was created so
