@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="infocus.auto.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var checkboxes = document.querySelectorAll('input[type=checkbox]');
+        var c, label, length = checkboxes.length;
+        for (c = 0; c < length; c++) {
+          label = checkboxes[c].parentElement;
+          checkboxes[c].addEventListener('change', (function(checkbox, label) {
+            if (checkbox.checked) {
+              if (!label.classList.contains('selected')) {
+                label.classList.add('selected');
+              }
+            } else {
+              if (label.classList.contains('selected')) {
+                label.classList.remove('selected');
+              }
+            }
+          }).bind(this, checkboxes[c], label));
+        }
+      });
+    </script>
+    <style>
+      .infocus {
+        border: solid 3px #FF8800;
+      }
+      input[type=checkbox] {
+        opacity: 0;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+      }
+      .selected {
+        background-color: #0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      <label>
+        Inline input
+        <input type="text">
+      </label>
+    </p>
+    <p>
+      <label for="input">
+        Out of line input
+      </label>
+      <input type="text" id="input">
+    </p>
+    <p>
+      <label>
+        <input type="checkbox" name="test" value="1"> First
+      </label>
+    </p>
+    <p>
+      <label>
+        <input type="checkbox" name="test" value="2"> Second
+      </label>
+    </p>
+    <p>
+      <label>
+        <input type="checkbox" name="test" value="3"> Third
+      </label>
+    </p>
+  </body>
+</html>
