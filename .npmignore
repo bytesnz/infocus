@@ -1,1 +1,5 @@
+*~
+.*.sw?
 src/
+example.html
+gulpfile.js

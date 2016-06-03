@@ -27,49 +27,100 @@ document.addEventListener("DOMContentLoaded", function(event) {
 },{"./infocus.js":2}],2:[function(require,module,exports){
 'use strict';
 
-function infocus(focusClass, inputSelector) {
+function findLabel(input) {
+  var label = null;
+  if (input.hasAttribute('id')) {
+    label = document.querySelector('label[for="'
+        + input.getAttribute('id') + '"]');
+  }
+
+  if (!label) {
+    label = input;
+    while ((label = label.parentElement)) {
+      if (label.nodeName === 'LABEL') {
+        break;
+      }
+    }
+  }
+
+  return label;
+}
+
+function infocus(options) {
+  var map;
+
+    if (typeof options === 'string') {
+    options = {
+      focusClass: options
+    };
+  } else if (typeof options === 'undefined') {
+    options = {};
+  }
+
+  if (!options.inputSelector) {
+    options.inputSelector = 'input, textarea, select';
+  }
+
+  if (!options.focusClass) {
+    options.focusClass = 'infocus';
+  }
+
   function focus(label) {
-    if (!label.classList.contains(focusClass)) {
-      label.classList.add(focusClass);
+    if (!label.classList.contains(options.focusClass)) {
+      label.classList.add(options.focusClass);
     }
   }
 
   function blur(label) {
-    if (label.classList.contains(focusClass)) {
-      label.classList.remove(focusClass);
+    if (label.classList.contains(options.focusClass)) {
+      label.classList.remove(options.focusClass);
     }
   }
 
-  if (!inputSelector) {
-    inputSelector = 'input, textarea, select';
-  }
-
-  if (!focusClass) {
-    focusClass = 'infocus';
-  }
-
-  var inputs = document.querySelectorAll(inputSelector);
-
-  var i, label, length = inputs.length;
-  for (i = 0; i < length; i++) {
-    label = null;
-    if (inputs[i].hasAttribute('id')) {
-      label = document.querySelector('label[for="'
-          + inputs[i].getAttribute('id') + '"]');
+  if (options.storeLabels) {
+    if (typeof WeakMap === 'function') {
+      map = new WeakMap();
+    } else {
+      console.warn('WeakMap not available - not storing associated labels');
     }
+  }
 
-    if (!label) {
-      label = inputs[i];
-      while ((label = label.parentElement)) {
-        if (label.nodeName === 'LABEL') {
-          break;
+  if (options.useDocListener) {
+    document.addEventListener('focus', function(event) {
+      var label;
+      if (event.target.matches(options.inputSelector)) {
+        if (map && (label = map.get(event.target))) {
+          focus(label);
+        } else if ((label = findLabel(event.target))) {
+          focus(label);
+          if (map) {
+            map.set(event.target, label);
+          }
         }
       }
-    }
+    }, true);
+    document.addEventListener('blur', function(event) {
+      var label;
+      if (event.target.matches(options.inputSelector)) {
+        if (map && (label = map.get(event.target))) {
+          blur(label);
+        } else if ((label = findLabel(event.target))) {
+          blur(label);
+          if (map) {
+            map.set(event.target, label);
+          }
+        }
+      }
+    }, true);
+  } else {
+    var inputs = document.querySelectorAll(options.inputSelector);
 
-    if (label) {
-      inputs[i].addEventListener('focus', focus.bind(this, label));
-      inputs[i].addEventListener('blur', blur.bind(this, label));
+    var i, label, length = inputs.length;
+    for (i = 0; i < length; i++) {
+      if ((label = findLabel(inputs[i]))) {
+        inputs[i].addEventListener('focus', focus.bind(this, label));
+        inputs[i].addEventListener('blur', blur.bind(this, label));
+      }
     }
   }
 }

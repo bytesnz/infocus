@@ -14,7 +14,40 @@ through the parent elements of the input to find a label element.
 The script is pure Javascript and uses
 [`classList`](http://caniuse.com/#feat=classlist),
 [`querySelector`](http://caniuse.com/#feat=queryselector), and
-[`addEventListener`](http://caniuse.com/#feat=addeventlistener)
-(the auto script also uses
+[`addEventListener`](http://caniuse.com/#feat=addeventlistener).
+The auto script uses
 [`DOMContentLoaded`](http://caniuse.com/#feat=domcontentloaded),
-hence it will require shims/polyfills to support older browsers.
+The `storeLabels` option uses
+['WeakStore`](http://kangax.github.io/compat-table/es6/#test-WeakMap).
+If you need to support older browsers, you will need to use
+shims/polyfills.
+
+## infocus usage
+Use the default options for everything
+
+```html
+<script src="infocus.auto.min.js"></script>
+```
+
+Customise:
+
+```html
+<script src="infocus.min.js"></script>
+<script>
+  infocus({
+    focusClass: 'focus',
+    useDocListener: true
+  });
+</script>
+```
+
+The single parameter to `infocus()` can either be the class to add to labels
+when their associated input is in focus, or an Object of options:
+- `focusClass` {String} - The class to add to labels when their associated
+  input is in focus, default is `"infocus"`
+- `inputSelector` {String} - The selector string to find inputs to add the
+  class to, default is `"input, select, textarea"`
+- `useDocListener` {Boolean} - Whether to use a single event listener on the
+  document, or individual listeners on each input
+- `storeLabels` {Boolean} - If `true` (and `WeakMap` is available), labels will
+  be stored with their associated inputs

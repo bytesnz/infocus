@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="infocus.auto.js"></script>
+    <script src="infocus.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
+        infocus({
+          useDocListener: true,
+          storeLabels: true
+        });
         var checkboxes = document.querySelectorAll('input[type=checkbox]');
         var c, label, length = checkboxes.length;
         for (c = 0; c < length; c++) {
