@@ -22,7 +22,8 @@
  * Adds event listeners on to inputs to add/remove a class on the associated
  * label if the input is in focus or not.
  *
- * @param {String} focusClass Class that will be added/removed from the label
+ * @param {String} focusClass Class that will be added/removed from the label,
+ *        default is 'infocus'
  * @param {String} inputSelector Selector to select inputs to add event
  *        listeners to, default is 'input, textarea, select'
  *
@@ -43,6 +44,10 @@ function infocus(focusClass, inputSelector) {
 
   if (!inputSelector) {
     inputSelector = 'input, textarea, select';
+  }
+
+  if (!focusClass) {
+    focusClass = 'infocus';
   }
 
   // Find all inputs (including textareas and selects)
@@ -76,6 +81,6 @@ function infocus(focusClass, inputSelector) {
   }
 }
 
-if (module) {
+if (typeof module !== 'undefined') {
   module.exports = infocus;
 }

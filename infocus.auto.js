@@ -15,8 +15,9 @@
 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
 document.addEventListener("DOMContentLoaded", function(event) { 
@@ -26,16 +27,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 },{"./infocus.js":2}],2:[function(require,module,exports){
 'use strict';
 
-/**
- * Adds event listeners on to inputs to add/remove a class on the associated
- * label if the input is in focus or not.
- *
- * @param {String} focusClass Class that will be added/removed from the label
- * @param {String} inputSelector Selector to select inputs to add event
- *        listeners to, default is 'input, textarea, select'
- *
- * @returns {undefined}
- */
 function infocus(focusClass, inputSelector) {
   function focus(label) {
     if (!label.classList.contains(focusClass)) {
@@ -53,20 +44,20 @@ function infocus(focusClass, inputSelector) {
     inputSelector = 'input, textarea, select';
   }
 
-  // Find all inputs (including textareas and selects)
+  if (!focusClass) {
+    focusClass = 'infocus';
+  }
+
   var inputs = document.querySelectorAll(inputSelector);
 
-  // Go through inputs, find associated label and attach event handler to input
   var i, label, length = inputs.length;
   for (i = 0; i < length; i++) {
     label = null;
-    // Find label associated with the id - assume that the id is unique
     if (inputs[i].hasAttribute('id')) {
       label = document.querySelector('label[for="'
           + inputs[i].getAttribute('id') + '"]');
     }
 
-    // Find the parent label
     if (!label) {
       label = inputs[i];
       while ((label = label.parentElement)) {
@@ -76,7 +67,6 @@ function infocus(focusClass, inputSelector) {
       }
     }
 
-    // If we found a label, attach event listeners to the input
     if (label) {
       inputs[i].addEventListener('focus', focus.bind(this, label));
       inputs[i].addEventListener('blur', blur.bind(this, label));
@@ -84,8 +74,8 @@ function infocus(focusClass, inputSelector) {
   }
 }
 
-if (module) {
+if (typeof module !== 'undefined') {
   module.exports = infocus;
 }
 
-},{}]},{},[1]);
+},{}]},{},[1])
