@@ -82,12 +82,26 @@ function infocus(options) {
     options.focusClass = 'infocus';
   }
 
+  /**@internal
+   * Event handler function for focus events
+   *
+   * @param {HTMLDOMObject} label Label element to add class to
+   *
+   * @returns {undefined}
+   */
   function focus(label) {
     if (!label.classList.contains(options.focusClass)) {
       label.classList.add(options.focusClass);
     }
   }
 
+  /**@internal
+   * Event handler function for blur events
+   *
+   * @param {HTMLDOMObject} label Label element to add class to
+   *
+   * @returns {undefined}
+   */
   function blur(label) {
     if (label.classList.contains(options.focusClass)) {
       label.classList.remove(options.focusClass);

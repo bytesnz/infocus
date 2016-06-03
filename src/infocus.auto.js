@@ -18,6 +18,6 @@
  */
 'use strict';
 
-document.addEventListener("DOMContentLoaded", function(event) { 
+document.addEventListener("DOMContentLoaded", function() {
   require('./infocus.js')('infocus');
 });

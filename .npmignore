@@ -3,3 +3,4 @@
 src/
 example.html
 gulpfile.js
+.eslintrc
