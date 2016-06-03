@@ -1,15 +1,16 @@
 #infocus
 
-A super simple pure javascript script to add a class to an input's label when
-the input is in focus (and remove it when it loses focus). It was created so
-that in focus styling could be added to labels of radio buttons and checkboxes
-that had been stlyed to be like buttons rather than a label and a
-radio/checkbox
+A super simple pure javascript to add a class to an input element's associated
+label element when the input element is in focus (and remove it when it loses
+focus). It was created so that in focus styling could be added to labels of
+radio buttons and checkboxes that had been stlyed to be like buttons rather
+than a label and a radio/checkbox (will be redundant when CSS4 comes out).
 
 
-The script determines which label is associated with which label by using the
-`id` and `for` attributes of the input and label if they are set, or by going
-through the parent elements of the input to find a label element.
+The script determines which label element is associated with which input
+element by using the `id` and `for` attributes of the input and label if they
+are set, or by going through the parent elements of the input to find a
+label element.
 
 The script is pure Javascript and uses
 [`classList`](http://caniuse.com/#feat=classlist),
@@ -18,12 +19,14 @@ The script is pure Javascript and uses
 The auto script uses
 [`DOMContentLoaded`](http://caniuse.com/#feat=domcontentloaded),
 The `storeLabels` option uses
-['WeakStore`](http://kangax.github.io/compat-table/es6/#test-WeakMap).
+[`WeakMap`](http://kangax.github.io/compat-table/es6/#test-WeakMap).
 If you need to support older browsers, you will need to use
 shims/polyfills.
 
 ## infocus usage
-Use the default options for everything
+Make it just work (will find all `<input>`, `<select>` and `<textarea>`
+input elements and will the `infocus` class to their associated `<label>`
+elements when they are in focus):
 
 ```html
 <script src="infocus.auto.min.js"></script>

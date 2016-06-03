@@ -1,6 +1,6 @@
 {
   "name": "infocus",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A super simple javascript to add a class to an input's label when the input is in focus",
   "main": "infocus.js",
   "scripts": {
