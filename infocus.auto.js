@@ -88,7 +88,8 @@ function infocus(options) {
   if (options.useDocListener) {
     document.addEventListener('focus', function(event) {
       var label;
-      if (event.target.matches(options.inputSelector)) {
+      if (typeof event.target.matches === 'function'
+          && event.target.matches(options.inputSelector)) {
         if (map && (label = map.get(event.target))) {
           focus(label);
         } else if ((label = findLabel(event.target))) {
@@ -101,7 +102,8 @@ function infocus(options) {
     }, true);
     document.addEventListener('blur', function(event) {
       var label;
-      if (event.target.matches(options.inputSelector)) {
+      if (typeof event.target.matches === 'function'
+          && event.target.matches(options.inputSelector)) {
         if (map && (label = map.get(event.target))) {
           blur(label);
         } else if ((label = findLabel(event.target))) {
